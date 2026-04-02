@@ -1,0 +1,5 @@
+{
+  "name": "Class Pilot",
+  "description": "A comprehensive school/tuition management system with role-based access for Admins, Teachers, and Students.",
+  "requestFramePermissions": []
+}
