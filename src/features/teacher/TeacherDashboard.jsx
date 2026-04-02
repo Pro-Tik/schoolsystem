@@ -3,11 +3,11 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { teacherService } from '../../api/teacher';
 import { useAuthStore } from '../../store/useAuthStore';
 import { BookOpen, Users, Calendar, ArrowRight, TrendingUp, ClipboardCheck, Plus, X } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { 
+import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell
 } from 'recharts';
 
@@ -18,6 +18,7 @@ const batchSchema = z.object({
 });
 
 export default function TeacherDashboard() {
+  const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const user = useAuthStore((state) => state.user);
   const queryClient = useQueryClient();
@@ -58,7 +59,7 @@ export default function TeacherDashboard() {
           <h1 className="text-2xl font-bold text-gray-900">Teacher Dashboard</h1>
           <p className="text-gray-500">Manage your batches and track student progress.</p>
         </div>
-        <button 
+        <button
           onClick={() => setShowModal(true)}
           className="flex items-center justify-center space-x-2 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
         >
@@ -71,7 +72,7 @@ export default function TeacherDashboard() {
       {showModal && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
           <div className="bg-white rounded-xl w-full max-w-md p-6 shadow-2xl relative">
-            <button 
+            <button
               onClick={() => setShowModal(false)}
               className="absolute right-4 top-4 text-gray-400 hover:text-gray-600"
             >
@@ -81,40 +82,40 @@ export default function TeacherDashboard() {
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Batch Name</label>
-                <input 
+                <input
                   {...register('name')}
-                  className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none" 
+                  className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none"
                   placeholder="e.g. Class 9 - Math"
                 />
                 {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name.message}</p>}
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Schedule</label>
-                <input 
+                <input
                   {...register('schedule')}
-                  className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none" 
+                  className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none"
                   placeholder="e.g. Sun-Tue-Thu 10:00 AM"
                 />
                 {errors.schedule && <p className="text-red-500 text-xs mt-1">{errors.schedule.message}</p>}
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Description (Optional)</label>
-                <textarea 
+                <textarea
                   {...register('description')}
-                  className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none" 
+                  className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none"
                   rows="3"
                   placeholder="Batch details..."
                 />
               </div>
               <div className="flex space-x-3 mt-8">
-                <button 
-                  type="button" 
+                <button
+                  type="button"
                   onClick={() => setShowModal(false)}
                   className="flex-1 px-4 py-2 border border-gray-200 text-gray-600 rounded-lg hover:bg-gray-50"
                 >
                   Cancel
                 </button>
-                <button 
+                <button
                   type="submit"
                   disabled={createMutation.isPending}
                   className="flex-1 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 disabled:opacity-50"
@@ -139,10 +140,10 @@ export default function TeacherDashboard() {
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={performanceData}>
                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f0f0f0" />
-                <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fontSize: 12, fill: '#9ca3af'}} />
-                <YAxis axisLine={false} tickLine={false} tick={{fontSize: 12, fill: '#9ca3af'}} />
-                <Tooltip 
-                  cursor={{fill: '#f9fafb'}}
+                <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: '#9ca3af' }} />
+                <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: '#9ca3af' }} />
+                <Tooltip
+                  cursor={{ fill: '#f9fafb' }}
                   contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }}
                 />
                 <Bar dataKey="avgScore" fill="#4f46e5" radius={[4, 4, 0, 0]} barSize={40}>
@@ -175,7 +176,14 @@ export default function TeacherDashboard() {
               </div>
             </div>
           </div>
-          <button className="mt-6 w-full py-2 bg-white/20 hover:bg-white/30 rounded-lg transition-colors text-sm font-medium flex items-center justify-center space-x-2">
+          <button
+            onClick={() => {
+              if (batches && batches.length > 0) {
+                navigate(`/teacher/batches/${batches[0].id}`);
+              }
+            }}
+            className="mt-6 w-full py-2 bg-white/20 hover:bg-white/30 rounded-lg transition-colors text-sm font-medium flex items-center justify-center space-x-2"
+          >
             <ClipboardCheck size={18} />
             <span>Mark Today's Attendance</span>
           </button>
@@ -185,14 +193,14 @@ export default function TeacherDashboard() {
       <h2 className="text-xl font-bold text-gray-900">My Batches</h2>
       {isLoading ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {[1,2].map(i => <div key={i} className="h-48 bg-gray-200 animate-pulse rounded-xl" />)}
+          {[1, 2].map(i => <div key={i} className="h-48 bg-gray-200 animate-pulse rounded-xl" />)}
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {batches?.map((batch) => (
-            <Link 
+            <Link
               to={`/teacher/batches/${batch.id}`}
-              key={batch.id} 
+              key={batch.id}
               className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:border-indigo-300 transition-all hover:shadow-md group"
             >
               <div className="flex items-center justify-between mb-4">

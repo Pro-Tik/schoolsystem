@@ -2,17 +2,26 @@ import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { teacherService } from '../../api/teacher';
-import { Plus, BookOpen, Clock, Calendar, ChevronLeft, Send } from 'lucide-react';
+import { Plus, BookOpen, Clock, Calendar, ChevronLeft, Send, X } from 'lucide-react';
 
 export default function QuizManagement() {
   const { batchId } = useParams();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const [showCreate, setShowCreate] = useState(false);
+  const [editingQuiz, setEditingQuiz] = useState(null);
+  const [viewingResults, setViewingResults] = useState(null);
+  const [formData, setFormData] = useState({ title: '', dueDate: '' });
 
   const { data: quizzes, isLoading } = useQuery({
     queryKey: ['batch-quizzes', batchId],
     queryFn: () => teacherService.getQuizzes(batchId)
+  });
+
+  const { data: submissions, isLoading: loadingResults } = useQuery({
+    queryKey: ['quiz-results', viewingResults?.id],
+    queryFn: () => teacherService.getQuizSubmissions(batchId, viewingResults.id),
+    enabled: !!viewingResults
   });
 
   const createMutation = useMutation({
@@ -20,7 +29,25 @@ export default function QuizManagement() {
     onSuccess: () => {
       queryClient.invalidateQueries(['batch-quizzes', batchId]);
       setShowCreate(false);
+      setFormData({ title: '', dueDate: '' });
       alert('Quiz created successfully!');
+    }
+  });
+
+  const updateMutation = useMutation({
+    mutationFn: (data) => teacherService.updateQuiz(batchId, editingQuiz.id, data),
+    onSuccess: () => {
+      queryClient.invalidateQueries(['batch-quizzes', batchId]);
+      setEditingQuiz(null);
+      alert('Quiz updated successfully!');
+    }
+  });
+
+  const deleteMutation = useMutation({
+    mutationFn: (quizId) => teacherService.deleteQuiz(batchId, quizId),
+    onSuccess: () => {
+      queryClient.invalidateQueries(['batch-quizzes', batchId]);
+      alert('Quiz deleted successfully!');
     }
   });
 
@@ -28,7 +55,7 @@ export default function QuizManagement() {
 
   return (
     <div className="space-y-6">
-      <button 
+      <button
         onClick={() => navigate(-1)}
         className="flex items-center space-x-2 text-gray-500 hover:text-indigo-600 transition-colors"
       >
@@ -41,7 +68,7 @@ export default function QuizManagement() {
           <h1 className="text-2xl font-bold text-gray-900">Quiz Management</h1>
           <p className="text-gray-500">Create and manage quizzes for this batch.</p>
         </div>
-        <button 
+        <button
           onClick={() => setShowCreate(true)}
           className="flex items-center space-x-2 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
         >
@@ -57,11 +84,18 @@ export default function QuizManagement() {
               <div className="p-2 bg-indigo-50 text-indigo-600 rounded-lg">
                 <BookOpen size={20} />
               </div>
-              <span className={`px-2.5 py-1 rounded-full text-xs font-medium ${
-                quiz.status === 'PUBLISHED' ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-600'
-              }`}>
-                {quiz.status}
-              </span>
+              <div className="flex items-center space-x-2">
+                <span className={`px-2.5 py-1 rounded-full text-xs font-medium ${quiz.status === 'PUBLISHED' ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-600'
+                  }`}>
+                  {quiz.status}
+                </span>
+                <button
+                  onClick={() => { if (window.confirm('Delete quiz?')) deleteMutation.mutate(quiz.id) }}
+                  className="p-1 text-gray-400 hover:text-red-600"
+                >
+                  <X size={16} />
+                </button>
+              </div>
             </div>
             <h3 className="font-bold text-gray-900 text-lg">{quiz.title}</h3>
             <div className="mt-4 space-y-2">
@@ -75,10 +109,16 @@ export default function QuizManagement() {
               </div>
             </div>
             <div className="mt-6 flex space-x-3">
-              <button className="flex-1 px-4 py-2 border border-gray-200 text-gray-600 rounded-lg hover:bg-gray-50 transition-colors text-sm font-medium">
+              <button
+                onClick={() => setEditingQuiz(quiz)}
+                className="flex-1 px-4 py-2 border border-gray-200 text-gray-600 rounded-lg hover:bg-gray-50 transition-colors text-sm font-medium"
+              >
                 Edit
               </button>
-              <button className="flex-1 px-4 py-2 bg-indigo-50 text-indigo-600 rounded-lg hover:bg-indigo-100 transition-colors text-sm font-medium">
+              <button
+                onClick={() => setViewingResults(quiz)}
+                className="flex-1 px-4 py-2 bg-indigo-50 text-indigo-600 rounded-lg hover:bg-indigo-100 transition-colors text-sm font-medium"
+              >
                 Results
               </button>
             </div>
@@ -86,27 +126,99 @@ export default function QuizManagement() {
         ))}
       </div>
 
+      {/* Create Quiz Modal */}
       {showCreate && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
           <div className="bg-white rounded-xl w-full max-w-lg p-6 shadow-2xl">
             <h2 className="text-xl font-bold mb-4">Create New Quiz</h2>
             <form className="space-y-4" onSubmit={(e) => {
               e.preventDefault();
-              createMutation.mutate({ title: 'New Quiz', questions: 10 });
+              createMutation.mutate({ ...formData, questions: 10 });
             }}>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Quiz Title</label>
-                <input type="text" className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="e.g. Algebra Basics" required />
+                <input
+                  type="text"
+                  className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none"
+                  placeholder="e.g. Algebra Basics"
+                  value={formData.title}
+                  onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                  required
+                />
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Due Date</label>
-                <input type="date" className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none" required />
+                <input
+                  type="date"
+                  className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none"
+                  value={formData.dueDate}
+                  onChange={(e) => setFormData({ ...formData, dueDate: e.target.value })}
+                  required
+                />
               </div>
               <div className="flex space-x-3 mt-6">
                 <button type="button" onClick={() => setShowCreate(false)} className="flex-1 px-4 py-2 border border-gray-200 text-gray-600 rounded-lg hover:bg-gray-50">Cancel</button>
                 <button type="submit" className="flex-1 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">Create Quiz</button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* Edit Quiz Modal */}
+      {editingQuiz && (
+        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-xl w-full max-w-lg p-6 shadow-2xl">
+            <h2 className="text-xl font-bold mb-4">Edit Quiz</h2>
+            <div className="space-y-4">
+              <input
+                defaultValue={editingQuiz.title}
+                className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                id="edit-title"
+              />
+              <div className="flex space-x-3 mt-6">
+                <button onClick={() => setEditingQuiz(null)} className="flex-1 px-4 py-2 border border-gray-200 rounded-lg text-gray-600">Cancel</button>
+                <button
+                  onClick={() => updateMutation.mutate({ title: document.getElementById('edit-title').value })}
+                  className="flex-1 px-4 py-2 bg-indigo-600 text-white rounded-lg"
+                >
+                  Save Changes
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Results Modal */}
+      {viewingResults && (
+        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-xl w-full max-w-2xl p-6 shadow-2xl max-h-[80vh] overflow-y-auto">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-xl font-bold">Results: {viewingResults.title}</h2>
+              <button onClick={() => setViewingResults(null)} className="p-2 text-gray-400 hover:text-gray-600"><X size={20} /></button>
+            </div>
+            {loadingResults ? <div className="text-center py-8">Loading...</div> : (
+              <div className="space-y-4">
+                {submissions?.map((sub, i) => (
+                  <div key={i} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg border border-gray-100">
+                    <div className="flex items-center space-x-3">
+                      <div className="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center font-bold text-indigo-600">
+                        {sub.studentName.charAt(0)}
+                      </div>
+                      <div>
+                        <p className="font-bold text-gray-900">{sub.studentName}</p>
+                        <p className="text-xs text-gray-500">Submitted: {sub.submittedAt}</p>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-lg font-bold text-indigo-600">{sub.score}%</p>
+                      <p className="text-xs text-gray-400">Score</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       )}

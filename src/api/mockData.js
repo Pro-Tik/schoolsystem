@@ -27,4 +27,6 @@ export const INITIAL_ATTENDANCE = [
 export const INITIAL_FEES = [
   { id: 'f1', studentId: 's1', month: 'March', year: 2026, amount: 2000, status: 'PAID' },
   { id: 'f2', studentId: 's2', month: 'March', year: 2026, amount: 2000, status: 'PENDING' },
+  { id: 'f3', studentId: 's1', month: 'April', year: 2026, amount: 2500, status: 'PENDING' },
+  { id: 'f4', studentId: 's1', month: 'May', year: 2026, amount: 2500, status: 'PENDING' },
 ];

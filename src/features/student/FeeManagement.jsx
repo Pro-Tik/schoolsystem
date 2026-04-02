@@ -18,6 +18,8 @@ export default function FeeManagement() {
     }
   });
 
+  const [selectedMethod, setSelectedMethod] = React.useState('bkash');
+
   if (isLoading) return <div className="animate-pulse space-y-4"><div className="h-64 bg-gray-200 rounded-xl" /></div>;
 
   const fees = dashboard?.fees || [];
@@ -34,7 +36,10 @@ export default function FeeManagement() {
           <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
             <div className="p-6 border-b border-gray-100 flex items-center justify-between">
               <h3 className="font-bold text-lg">Payment History</h3>
-              <button className="text-indigo-600 hover:text-indigo-700 text-sm font-medium flex items-center space-x-1">
+              <button
+                onClick={() => alert('Exporting PDF...')}
+                className="text-indigo-600 hover:text-indigo-700 text-sm font-medium flex items-center space-x-1"
+              >
                 <Download size={16} />
                 <span>Export PDF</span>
               </button>
@@ -55,16 +60,15 @@ export default function FeeManagement() {
                       <td className="px-6 py-4 font-medium text-gray-900">{fee.month} {fee.year}</td>
                       <td className="px-6 py-4 text-gray-600">৳{fee.amount}</td>
                       <td className="px-6 py-4">
-                        <span className={`inline-flex items-center space-x-1 px-2.5 py-1 rounded-full text-xs font-medium ${
-                          fee.status === 'PAID' ? 'bg-green-100 text-green-700' : 'bg-orange-100 text-orange-700'
-                        }`}>
+                        <span className={`inline-flex items-center space-x-1 px-2.5 py-1 rounded-full text-xs font-medium ${fee.status === 'PAID' ? 'bg-green-100 text-green-700' : 'bg-orange-100 text-orange-700'
+                          }`}>
                           {fee.status === 'PAID' ? <CheckCircle size={12} /> : <Clock size={12} />}
                           <span>{fee.status}</span>
                         </span>
                       </td>
                       <td className="px-6 py-4 text-right">
                         {fee.status === 'PENDING' ? (
-                          <button 
+                          <button
                             onClick={() => payMutation.mutate(fee.id)}
                             disabled={payMutation.isPending}
                             className="px-4 py-1.5 bg-indigo-600 text-white text-xs font-medium rounded-lg hover:bg-indigo-700 transition-colors disabled:opacity-50"
@@ -72,7 +76,10 @@ export default function FeeManagement() {
                             {payMutation.isPending ? 'Processing...' : 'Pay Now'}
                           </button>
                         ) : (
-                          <button className="p-2 text-gray-400 hover:text-indigo-600 rounded-lg transition-colors">
+                          <button
+                            onClick={() => alert('Downloading invoice...')}
+                            className="p-2 text-gray-400 hover:text-indigo-600 rounded-lg transition-colors"
+                          >
                             <Download size={18} />
                           </button>
                         )}
@@ -102,20 +109,35 @@ export default function FeeManagement() {
           <div className="bg-white rounded-xl p-6 border border-gray-100 shadow-sm">
             <h3 className="font-bold mb-4">Payment Methods</h3>
             <div className="space-y-3">
-              <div className="flex items-center justify-between p-3 border border-indigo-100 bg-indigo-50 rounded-lg">
+              <button
+                onClick={() => setSelectedMethod('bkash')}
+                className={`w-full flex items-center justify-between p-3 border rounded-lg transition-all ${selectedMethod === 'bkash'
+                    ? 'border-indigo-100 bg-indigo-50 shadow-sm'
+                    : 'border-gray-50 hover:border-indigo-100'
+                  }`}
+              >
                 <div className="flex items-center space-x-3">
-                  <CreditCard size={20} className="text-indigo-600" />
-                  <span className="text-sm font-medium">bKash / Rocket</span>
+                  <CreditCard size={20} className={selectedMethod === 'bkash' ? 'text-indigo-600' : 'text-gray-400'} />
+                  <span className={`text-sm font-medium ${selectedMethod === 'bkash' ? 'text-indigo-900' : 'text-gray-600'}`}>bKash / Rocket</span>
                 </div>
-                <div className="w-4 h-4 rounded-full border-4 border-indigo-600" />
-              </div>
-              <div className="flex items-center justify-between p-3 border border-gray-100 rounded-lg opacity-50">
+                <div className={`w-4 h-4 rounded-full border-2 ${selectedMethod === 'bkash' ? 'border-indigo-600 border-4' : 'border-gray-200'
+                  }`} />
+              </button>
+
+              <button
+                onClick={() => setSelectedMethod('card')}
+                className={`w-full flex items-center justify-between p-3 border rounded-lg transition-all ${selectedMethod === 'card'
+                    ? 'border-indigo-100 bg-indigo-50 shadow-sm'
+                    : 'border-gray-50 hover:border-indigo-100'
+                  }`}
+              >
                 <div className="flex items-center space-x-3">
-                  <CreditCard size={20} className="text-gray-400" />
-                  <span className="text-sm font-medium">Credit Card</span>
+                  <CreditCard size={20} className={selectedMethod === 'card' ? 'text-indigo-600' : 'text-gray-400'} />
+                  <span className={`text-sm font-medium ${selectedMethod === 'card' ? 'text-indigo-900' : 'text-gray-600'}`}>Credit Card</span>
                 </div>
-                <div className="w-4 h-4 rounded-full border-2 border-gray-200" />
-              </div>
+                <div className={`w-4 h-4 rounded-full border-2 ${selectedMethod === 'card' ? 'border-indigo-600 border-4' : 'border-gray-200'
+                  }`} />
+              </button>
             </div>
           </div>
         </div>

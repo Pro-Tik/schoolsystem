@@ -1,14 +1,16 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { studentService } from '../../api/student';
 import { useAuthStore } from '../../store/useAuthStore';
 import { BookOpen, Calendar, CreditCard, TrendingUp, CheckCircle, GraduationCap } from 'lucide-react';
-import { 
+import {
   PieChart, Pie, Cell, ResponsiveContainer, Tooltip,
   BarChart, Bar, XAxis, YAxis, CartesianGrid
 } from 'recharts';
 
 export default function StudentDashboard() {
+  const navigate = useNavigate();
   const user = useAuthStore((state) => state.user);
   const { data: dashboard, isLoading } = useQuery({
     queryKey: ['student-dashboard', user?.id],
@@ -33,7 +35,7 @@ export default function StudentDashboard() {
     <div className="animate-pulse space-y-8">
       <div className="h-10 bg-gray-200 rounded w-1/4" />
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {[1,2,3].map(i => <div key={i} className="h-32 bg-gray-200 rounded-xl" />)}
+        {[1, 2, 3].map(i => <div key={i} className="h-32 bg-gray-200 rounded-xl" />)}
       </div>
     </div>
   );
@@ -129,16 +131,21 @@ export default function StudentDashboard() {
               <TrendingUp size={20} className="text-indigo-600" />
               <span>Quiz Performance</span>
             </h3>
-            <button className="text-sm text-indigo-600 font-medium hover:underline">View History</button>
+            <button
+              onClick={() => navigate('/student/quizzes')}
+              className="text-sm text-indigo-600 font-medium hover:underline"
+            >
+              View History
+            </button>
           </div>
           <div className="h-48 w-full">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={quizPerformance}>
                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f0f0f0" />
-                <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fontSize: 12, fill: '#9ca3af'}} />
-                <YAxis axisLine={false} tickLine={false} tick={{fontSize: 12, fill: '#9ca3af'}} />
-                <Tooltip 
-                  cursor={{fill: '#f9fafb'}}
+                <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: '#9ca3af' }} />
+                <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: '#9ca3af' }} />
+                <Tooltip
+                  cursor={{ fill: '#f9fafb' }}
                   contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }}
                 />
                 <Bar dataKey="score" fill="#4f46e5" radius={[4, 4, 0, 0]} barSize={30} />
@@ -168,7 +175,10 @@ export default function StudentDashboard() {
                     <p className="text-xs text-gray-500">Due: {quiz.dueDate}</p>
                   </div>
                 </div>
-                <button className="px-4 py-1.5 bg-indigo-600 text-white text-xs font-medium rounded-lg hover:bg-indigo-700 transition-colors">
+                <button
+                  onClick={() => navigate('/student/quizzes')}
+                  className="px-4 py-1.5 bg-indigo-600 text-white text-xs font-medium rounded-lg hover:bg-indigo-700 transition-colors"
+                >
                   Prepare
                 </button>
               </div>

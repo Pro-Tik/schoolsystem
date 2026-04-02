@@ -5,10 +5,10 @@ export const studentService = {
     return new Promise((resolve) => {
       setTimeout(() => {
         const studentFees = INITIAL_FEES.filter(f => f.studentId === studentId);
-        const attendance = INITIAL_ATTENDANCE.filter(a => 
+        const attendance = INITIAL_ATTENDANCE.filter(a =>
           a.records.some(r => r.studentId === studentId)
         );
-        
+
         resolve({
           fees: studentFees,
           attendanceSummary: {
@@ -53,6 +53,44 @@ export const studentService = {
   getFeeSummary: async () => {
     return new Promise((resolve) => {
       setTimeout(() => resolve({ totalDue: 2000, paid: 4000, pending: 1 }), 400);
+    });
+  },
+
+  getSubmissionHistory: async () => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve([
+          { id: 's1', quizTitle: 'Chapter 1 Quiz', score: 85, date: '2026-03-29' },
+          { id: 's2', quizTitle: 'Chapter 2 Quiz', score: 90, date: '2026-03-31' }
+        ]);
+      }, 500);
+    });
+  },
+
+  getFeeHistory: async () => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve([
+          { id: 'h1', month: 'January', year: 2026, amount: 2000, status: 'PAID', date: '2026-01-05' },
+          { id: 'h2', month: 'February', year: 2026, amount: 2000, status: 'PAID', date: '2026-02-04' }
+        ]);
+      }, 600);
+    });
+  },
+
+  getMySubmission: async (batchId, quizId) => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve({
+          quizId,
+          score: 85,
+          totalPoints: 100,
+          submittedAt: '2026-03-29',
+          answers: [
+            { questionId: 'q1', selected: 'B', correct: 'B', isCorrect: true }
+          ]
+        });
+      }, 700);
     });
   }
 };

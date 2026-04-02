@@ -1,0 +1,1536 @@
+{
+  "info": {
+    "_postman_id": "cb6cb3b8-46d9-410b-9994-5ee628735099",
+    "name": "Class Pilot",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "45157794",
+    "_collection_link": "https://go.postman.co/collection/45157794-cb6cb3b8-46d9-410b-9994-5ee628735099?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Login  [Admin ]",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@classpilot.com\",\n  \"password\": \"Admin12345\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login  [Teacher]",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"john@example.com\",\n  \"password\": \"Teacher123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login  [Student]",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"alice@example.com\",\n  \"password\": \"NewPass@1234\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Me",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/auth/me",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "me"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Refresh Token",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/auth/refresh-token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "refresh-token"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Change Password",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"currentPassword\": \"NewPass@1234\",\n  \"newPassword\": \"NewPass@1234\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/change-password",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "change-password"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Verify Email",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"hostproxy55@gmail.com\",\n  \"otp\": \"123456\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/verify-email",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "verify-email"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Forgot Password",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"hostproxy55@gmail.com\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/forgot-password",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "forgot-password"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Reset Password",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"hostproxy55@gmail.com\",\n  \"otp\": \"123456\",\n  \"newPassword\": \"Reset@1234\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/reset-password",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "reset-password"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/auth/logout",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "logout"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "User",
+      "item": [
+        {
+          "name": "Create Teacher",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"password\": \"Teacher123\",\n  \"teacher\": {\n    \"name\": \"John Smith\",\n    \"email\": \"john@example.com\",\n    \"phone\": \"01712345678\",\n    \"subject\": \"Mathematics\",\n    \"bio\": \"Senior math teacher\",\n    \"image\": \"https://example.com/photo.jpg\"\n  }\n}\n"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/user/create-teacher",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "user",
+                "create-teacher"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Student",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"password\": \"Student123\",\n  \"student\": {\n    \"name\": \"Alice\",\n    \"email\": \"alice@example.com\",\n    \"batchId\": \"5f4d3a2b-1c9e-4a7d-8f6b-2e1c3d4f5a6b\",\n    \"phone\": \"01712345678\",\n    \"enrollmentDate\": \"2026-03-27T00:00:00.000Z\",\n    \"image\": \"https://example.com/alice.jpg\"\n  }\n}\n"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/user/create-student",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "user",
+                "create-student"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Teacher",
+      "item": [
+        {
+          "name": "Create Batch",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"batch\": {\n        \"teacherId\": \"019d2b75-36b3-7429-bdbc-f12e6063715e\",\n        \"name\": \"Batch A - Class 9\",\n        \"description\": \"Morning batch for Class 9 students\",\n        \"schedule\": \"Sun-Tue-Thu 10:00 AM - 11:30 AM\",\n        \"startDate\": \"2026-04-01T00:00:00.000Z\",\n        \"endDate\": \"2026-09-30T00:00:00.000Z\"\n    }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/teacher/create-batch",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "teacher",
+                "create-batch"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Fees",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"month\": \"March\",\n  \"year\": 2026\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/teacher/batches/:batchId/generate-fees",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "teacher",
+                "batches",
+                ":batchId",
+                "generate-fees"
+              ],
+              "variable": [
+                {
+                  "key": "batchId",
+                  "value": "5f4d3a2b-1c9e-4a7d-8f6b-2e1c3d4f5a6b"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "My Batches",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"batch\": {\n        \"teacherId\": \"019d2b75-36b3-7429-bdbc-f12e6063715e\",\n        \"name\": \"Batch A - Class 9\",\n        \"description\": \"Morning batch for Class 9 students\",\n        \"schedule\": \"Sun-Tue-Thu 10:00 AM - 11:30 AM\",\n        \"startDate\": \"2026-04-01T00:00:00.000Z\",\n        \"endDate\": \"2026-09-30T00:00:00.000Z\"\n    }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/teacher/my-batches",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "teacher",
+                "my-batches"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Batches Student",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"batch\": {\n        \"teacherId\": \"019d2b75-36b3-7429-bdbc-f12e6063715e\",\n        \"name\": \"Batch A - Class 9\",\n        \"description\": \"Morning batch for Class 9 students\",\n        \"schedule\": \"Sun-Tue-Thu 10:00 AM - 11:30 AM\",\n        \"startDate\": \"2026-04-01T00:00:00.000Z\",\n        \"endDate\": \"2026-09-30T00:00:00.000Z\"\n    }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/teacher/batches/:batchId/students",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "teacher",
+                "batches",
+                ":batchId",
+                "students"
+              ],
+              "variable": [
+                {
+                  "key": "batchId",
+                  "value": "5f4d3a2b-1c9e-4a7d-8f6b-2e1c3d4f5a6b"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Batches Student Attendence",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"attendance\": {\n    \"date\": \"2026-03-28T00:00:00.000Z\",\n    \"records\": [\n      {\n        \"studentId\": \"019d2b8f-8a47-7659-a5e1-c6f22c6a8379\",\n        // \"status\": \"PRESENT\",\n        \"remarks\": \"optional\"\n      }\n    ]\n  }\n}\n"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/teacher/batches/:batchId/attendance",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "teacher",
+                "batches",
+                ":batchId",
+                "attendance"
+              ],
+              "variable": [
+                {
+                  "key": "batchId",
+                  "value": "5f4d3a2b-1c9e-4a7d-8f6b-2e1c3d4f5a6b"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Batches Student Attendence",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"attendance\": {\n    \"date\": \"2026-03-28T00:00:00.000Z\",\n    \"records\": [\n      {\n        \"studentId\": \"019d2b8f-8a47-7659-a5e1-c6f22c6a8379\",\n        // \"status\": \"PRESENT\",\n        \"remarks\": \"optional\"\n      }\n    ]\n  }\n}\n"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/teacher/batches/:batchId/attendance",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "teacher",
+                "batches",
+                ":batchId",
+                "attendance"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "ABSENT",
+                  "disabled": true
+                }
+              ],
+              "variable": [
+                {
+                  "key": "batchId",
+                  "value": "5f4d3a2b-1c9e-4a7d-8f6b-2e1c3d4f5a6b"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Quiz",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"quiz\": {\n    \"title\": \"Chapter 1 Quiz\",\n    \"description\": \"Basic concepts\",\n    \"duration\": 30,\n    \"dueDate\": \"2026-03-30T12:00:00.000Z\",\n    \"questions\": [\n      {\n        \"questionText\": \"What is 2 + 2?\",\n        \"optionA\": \"3\",\n        \"optionB\": \"4\",\n        \"optionC\": \"5\",\n        \"optionD\": \"6\",\n        \"correctAnswer\": \"B\",\n        \"point\": 1\n      }\n    ]\n  }\n}\n"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/quiz/:batchId/quizzes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "quiz",
+                ":batchId",
+                "quizzes"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "ABSENT",
+                  "disabled": true
+                }
+              ],
+              "variable": [
+                {
+                  "key": "batchId",
+                  "value": "5f4d3a2b-1c9e-4a7d-8f6b-2e1c3d4f5a6b"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Quiz",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"quiz\": {\n    \"title\": \"Chapter 1 Quiz\",\n    \"description\": \"Basic concepts\",\n    \"duration\": 30,\n    \"dueDate\": \"2026-03-30T12:00:00.000Z\",\n    \"questions\": [\n      {\n        \"questionText\": \"What is 2 + 2?\",\n        \"optionA\": \"3\",\n        \"optionB\": \"4\",\n        \"optionC\": \"5\",\n        \"optionD\": \"6\",\n        \"correctAnswer\": \"B\",\n        \"point\": 1\n      }\n    ]\n  }\n}\n"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/quiz/:batchId/quizzes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "quiz",
+                ":batchId",
+                "quizzes"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "ABSENT",
+                  "disabled": true
+                }
+              ],
+              "variable": [
+                {
+                  "key": "batchId",
+                  "value": "5f4d3a2b-1c9e-4a7d-8f6b-2e1c3d4f5a6b"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Signle Quiz",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"quiz\": {\n    \"title\": \"Chapter 1 Quiz\",\n    \"description\": \"Basic concepts\",\n    \"duration\": 30,\n    \"dueDate\": \"2026-03-30T12:00:00.000Z\",\n    \"questions\": [\n      {\n        \"questionText\": \"What is 2 + 2?\",\n        \"optionA\": \"3\",\n        \"optionB\": \"4\",\n        \"optionC\": \"5\",\n        \"optionD\": \"6\",\n        \"correctAnswer\": \"B\",\n        \"point\": 1\n      }\n    ]\n  }\n}\n"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/quiz/:batchId/quizzes/:quizId",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "quiz",
+                ":batchId",
+                "quizzes",
+                ":quizId"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "ABSENT",
+                  "disabled": true
+                }
+              ],
+              "variable": [
+                {
+                  "key": "batchId",
+                  "value": "5f4d3a2b-1c9e-4a7d-8f6b-2e1c3d4f5a6b"
+                },
+                {
+                  "key": "quizId",
+                  "value": "019d3303-eedf-7350-9467-1b6f5722701c"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update quiz",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"quiz\": {\n    \"title\": \"Math Quiz Updated\",\n    \"duration\": 40,\n    \"dueDate\": \"2026-04-12T10:00:00.000Z\",\n    \"questions\": [\n      {\n        \"questionText\": \"4 + 2 = ?\",\n        \"optionA\": \"3\",\n        \"optionB\": \"4\",\n        \"optionC\": \"5\",\n        \"optionD\": \"6\",\n        \"correctAnswer\": \"B\",\n        \"point\": 1\n      },\n      {\n        \"questionText\": \"5 + 5 = ?\",\n        \"optionA\": \"8\",\n        \"optionB\": \"9\",\n        \"optionC\": \"10\",\n        \"optionD\": \"11\",\n        \"correctAnswer\": \"C\",\n        \"point\": 1\n      }\n    ]\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/quiz/:batchId/quizzes/:quizId",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "quiz",
+                ":batchId",
+                "quizzes",
+                ":quizId"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "ABSENT",
+                  "disabled": true
+                }
+              ],
+              "variable": [
+                {
+                  "key": "batchId",
+                  "value": "5f4d3a2b-1c9e-4a7d-8f6b-2e1c3d4f5a6b"
+                },
+                {
+                  "key": "quizId",
+                  "value": "019d3303-eedf-7350-9467-1b6f5722701c"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Toggle publish",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"quiz\": {\n    \"isPublished\": true\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/quiz/:batchId/quizzes/:quizId/publish",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "quiz",
+                ":batchId",
+                "quizzes",
+                ":quizId",
+                "publish"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "ABSENT",
+                  "disabled": true
+                }
+              ],
+              "variable": [
+                {
+                  "key": "batchId",
+                  "value": "5f4d3a2b-1c9e-4a7d-8f6b-2e1c3d4f5a6b"
+                },
+                {
+                  "key": "quizId",
+                  "value": "019d3303-eedf-7350-9467-1b6f5722701c"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete quiz",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"quiz\": {\n    \"title\": \"Chapter 1 Quiz\",\n    \"description\": \"Basic concepts\",\n    \"duration\": 30,\n    \"dueDate\": \"2026-03-30T12:00:00.000Z\",\n    \"questions\": [\n      {\n        \"questionText\": \"What is 2 + 2?\",\n        \"optionA\": \"3\",\n        \"optionB\": \"4\",\n        \"optionC\": \"5\",\n        \"optionD\": \"6\",\n        \"correctAnswer\": \"B\",\n        \"point\": 1\n      }\n    ]\n  }\n}\n"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/quiz/:batchId/quizzes/:quizId",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "quiz",
+                ":batchId",
+                "quizzes",
+                ":quizId"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "ABSENT",
+                  "disabled": true
+                }
+              ],
+              "variable": [
+                {
+                  "key": "batchId",
+                  "value": "5f4d3a2b-1c9e-4a7d-8f6b-2e1c3d4f5a6b"
+                },
+                {
+                  "key": "quizId",
+                  "value": "019d32e5-d77c-708c-9e31-18eababe07ab"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Question",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"question\": {\n    \"questionText\": \"10 + 3 = ?\",\n    \"optionA\": \"8\",\n    \"optionB\": \"9\",\n    \"optionC\": \"10\",\n    \"optionD\": \"13\",\n    \"correctAnswer\": \"D\"\n    \n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/quiz/:batchId/quizzes/:quizId/questions",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "quiz",
+                ":batchId",
+                "quizzes",
+                ":quizId",
+                "questions"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "ABSENT",
+                  "disabled": true
+                }
+              ],
+              "variable": [
+                {
+                  "key": "batchId",
+                  "value": "5f4d3a2b-1c9e-4a7d-8f6b-2e1c3d4f5a6b"
+                },
+                {
+                  "key": "quizId",
+                  "value": "019d3303-eedf-7350-9467-1b6f5722701c"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Question",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"question\": {\n    \"questionText\": \"7 + 3 = ?\"\n  }\n}\n"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/quiz/:batchId/quizzes/:quizId/questions/:questionId",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "quiz",
+                ":batchId",
+                "quizzes",
+                ":quizId",
+                "questions",
+                ":questionId"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "ABSENT",
+                  "disabled": true
+                }
+              ],
+              "variable": [
+                {
+                  "key": "batchId",
+                  "value": "5f4d3a2b-1c9e-4a7d-8f6b-2e1c3d4f5a6b"
+                },
+                {
+                  "key": "quizId",
+                  "value": "019d3303-eedf-7350-9467-1b6f5722701c"
+                },
+                {
+                  "key": "questionId",
+                  "value": "019d3378-313e-713d-88ee-5aa109b7d089"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Question",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"question\": {\n    \"questionText\": \"7 + 3 = ?\"\n  }\n}\n"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/quiz/:batchId/quizzes/:quizId/questions/:questionId",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "quiz",
+                ":batchId",
+                "quizzes",
+                ":quizId",
+                "questions",
+                ":questionId"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "ABSENT",
+                  "disabled": true
+                }
+              ],
+              "variable": [
+                {
+                  "key": "batchId",
+                  "value": "5f4d3a2b-1c9e-4a7d-8f6b-2e1c3d4f5a6b"
+                },
+                {
+                  "key": "quizId",
+                  "value": "019d3303-eedf-7350-9467-1b6f5722701c"
+                },
+                {
+                  "key": "questionId",
+                  "value": "019d3378-313e-713d-88ee-5aa109b7d089"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Submit Quiz",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"submission\": {\n    \"answers\": [\n      {\n        \"questionId\": \"question-id-1\",\n        \"selectedAnswer\": \"B\"\n      },\n      {\n        \"questionId\": \"question-id-2\",\n        \"selectedAnswer\": \"C\"\n      }\n    ]\n  }\n}\n"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/quiz/:batchId/quizzes/:quizId/submit",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "quiz",
+                ":batchId",
+                "quizzes",
+                ":quizId",
+                "submit"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "ABSENT",
+                  "disabled": true
+                }
+              ],
+              "variable": [
+                {
+                  "key": "batchId",
+                  "value": "5f4d3a2b-1c9e-4a7d-8f6b-2e1c3d4f5a6b"
+                },
+                {
+                  "key": "quizId",
+                  "value": "019d3303-eedf-7350-9467-1b6f5722701c"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Student Check Own Submission",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"submission\": {\n    \"answers\": [\n      {\n        \"questionId\": \"question-id-1\",\n        \"selectedAnswer\": \"B\"\n      },\n      {\n        \"questionId\": \"question-id-2\",\n        \"selectedAnswer\": \"C\"\n      }\n    ]\n  }\n}\n"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/quiz/:batchId/quizzes/:quizId/my-submission",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "quiz",
+                ":batchId",
+                "quizzes",
+                ":quizId",
+                "my-submission"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "ABSENT",
+                  "disabled": true
+                }
+              ],
+              "variable": [
+                {
+                  "key": "batchId",
+                  "value": "5f4d3a2b-1c9e-4a7d-8f6b-2e1c3d4f5a6b"
+                },
+                {
+                  "key": "quizId",
+                  "value": "019d3303-eedf-7350-9467-1b6f5722701c"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Teacher Check  Submission",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"submission\": {\n    \"answers\": [\n      {\n        \"questionId\": \"question-id-1\",\n        \"selectedAnswer\": \"B\"\n      },\n      {\n        \"questionId\": \"question-id-2\",\n        \"selectedAnswer\": \"C\"\n      }\n    ]\n  }\n}\n"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/quiz/:batchId/quizzes/:quizId/submissions",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "quiz",
+                ":batchId",
+                "quizzes",
+                ":quizId",
+                "submissions"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "ABSENT",
+                  "disabled": true
+                }
+              ],
+              "variable": [
+                {
+                  "key": "batchId",
+                  "value": "5f4d3a2b-1c9e-4a7d-8f6b-2e1c3d4f5a6b"
+                },
+                {
+                  "key": "quizId",
+                  "value": "019d3303-eedf-7350-9467-1b6f5722701c"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Dashboard",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"submission\": {\n    \"answers\": [\n      {\n        \"questionId\": \"question-id-1\",\n        \"selectedAnswer\": \"B\"\n      },\n      {\n        \"questionId\": \"question-id-2\",\n        \"selectedAnswer\": \"C\"\n      }\n    ]\n  }\n}\n"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/teacher/dashboard",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "teacher",
+                "dashboard"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "ABSENT",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Admin",
+      "item": [
+        {
+          "name": "OverView",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"john@example.com\",\n  \"password\": \"Teacher123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/admin/overview",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "admin",
+                "overview"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Teacher",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/admin/teachers",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "admin",
+                "teachers"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Student",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/admin/students",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "admin",
+                "students"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Batches",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/admin/batches",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "admin",
+                "batches"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update User",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"user\": {\r\n    \"status\": \"ACTIVE\"\r\n  }\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/admin/users/:userId/status",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "admin",
+                "users",
+                ":userId",
+                "status"
+              ],
+              "variable": [
+                {
+                  "key": "userId",
+                  "value": "sdf"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Student",
+      "item": [
+        {
+          "name": "Dasbord",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"john@example.com\",\n  \"password\": \"Teacher123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/student/dashboard",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "student",
+                "dashboard"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Assigned-quizzes",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/student/assigned-quizzes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "student",
+                "assigned-quizzes"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Submission-history",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/student/submission-history",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "student",
+                "submission-history"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "attendance-summary",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/student/attendance-summary",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "student",
+                "attendance-summary"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "fee-summary",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/student/fee-summary",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "student",
+                "fee-summary"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Pay Fee",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/student/fees/:feeId/pay",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "student",
+                "fees",
+                ":feeId",
+                "pay"
+              ],
+              "variable": [
+                {
+                  "key": "feeId",
+                  "value": "019d38e5-9ab3-708b-afd3-f89cfd288e68"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Fees History",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/student/fees/history",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "student",
+                "fees",
+                "history"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": ""
+    }
+  ]
+}
